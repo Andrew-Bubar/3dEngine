@@ -1,4 +1,7 @@
-﻿using _3dEngine;
+﻿using Kavet;
+using Kavet.Core;
+using Kavet.Rendering;
+
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
@@ -8,6 +11,7 @@ using OpenTK.Windowing.Desktop;
 Cube cube1 = null;
 Cube cube2 = null;
 Camera camera = null;
+Texture demoTexture = null;
 
 
 var settings = new NativeWindowSettings
@@ -35,8 +39,10 @@ window.MouseMove += args =>
 
 window.Load += () =>
 {
-    cube1 = new Cube(new Vector3(-0.6f, 0, 0), new Vector3(1, 0, 0));
-    cube2 = new Cube(new Vector3(0.6f, 0, 0), new Vector3(0, 0, 1));
+    demoTexture = new Texture("art/textures/woodTexture.png");
+
+    cube1 = new Cube(new Vector3(-0.6f, 0, 0), Color.White);
+    cube2 = new Cube(new Vector3(0.6f, 0, 0), Color.Yellow);
 
     camera = new Camera(new Vector3(0, 0, 3));
 
@@ -60,7 +66,7 @@ window.RenderFrame += args =>
         100f //render disntance
     );
 
-    cube1.Draw(view, projection);
+    cube1.Draw(view, projection, demoTexture);
     cube2.Draw(view, projection);
 
     window.SwapBuffers();
